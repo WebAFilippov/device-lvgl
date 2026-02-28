@@ -12,8 +12,6 @@ extern "C" {
 
 #define UI_THEME_COLOR_BACKGROUND 0
 #define UI_THEME_COLOR_FOREGROUND 1
-#define UI_THEME_COLOR_GRADIENTTO 2
-#define UI_THEME_COLOR_GRADIENTFROM 3
 
 #define UI_THEME_DEFAULT 0
 
@@ -26,12 +24,6 @@ extern const ui_theme_variable_t _ui_theme_alpha_background[3];
 
 extern const ui_theme_variable_t _ui_theme_color_foreground[3];
 extern const ui_theme_variable_t _ui_theme_alpha_foreground[3];
-
-extern const ui_theme_variable_t _ui_theme_color_gradientTo[3];
-extern const ui_theme_variable_t _ui_theme_alpha_gradientTo[3];
-
-extern const ui_theme_variable_t _ui_theme_color_gradientFrom[3];
-extern const ui_theme_variable_t _ui_theme_alpha_gradientFrom[3];
 
 extern const uint32_t * ui_theme_colors[3];
 extern const uint8_t * ui_theme_alphas[3];

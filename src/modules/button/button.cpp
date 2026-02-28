@@ -1,7 +1,9 @@
 #include "button.h"
 #include "modules/motor/motor.h"
+#include "modules/screen/screen.h"
+#include "modules/display/display.h"
 
-Button btn_theme;
+Button btn_change_screen;
 Button btn_motor_up;
 Button btn_motor_down;
 
@@ -9,34 +11,40 @@ void buttonTask(void *pvParameters)
 {
     while (1)
     {
-        btn_theme.tick();
+        btn_change_screen.tick();
         btn_motor_up.tick();
         btn_motor_down.tick();
 
-        if (btn_motor_up.press() && !btn_motor_down.pressing() && motor.getState() == 0)
+        if (btn_change_screen.click())
         {
-            Serial0.println("MOTOR: step UP");
-            motor.setSpeedPerc(100);
-        }
-        if (btn_motor_down.press() && !btn_motor_up.pressing() && motor.getState() == 0)
-        {
-            Serial0.println("MOTOR: step DOWN");
-            motor.setSpeedPerc(-100);
+            screen_switch_requested = true;
         }
 
+        if (btn_change_screen.hasClicks(2))
+        {
+            display_toggle_theme();
+        }
+
+        if (btn_motor_up.press() && !btn_motor_down.pressing() && motor_get_state() == 0)
+        {
+            motor_moved_up();
+        }
+        if (btn_motor_down.press() && !btn_motor_up.pressing() && motor_get_state() == 0)
+        {
+            motor_moved_down();
+        }
         if (btn_motor_up.release() || btn_motor_down.release())
         {
-            Serial0.println("MOTOR: release step");
-            motor.stop();
+            motor_brake();
         }
 
-        vTaskDelay(pdMS_TO_TICKS(5));
+        vTaskDelay(pdMS_TO_TICKS(1));
     }
 }
 
 void button_init()
 {
-    btn_theme.init(BUTTON_THEME_PIN, INPUT_PULLUP, LOW);
+    btn_change_screen.init(BUTTON_CHANGE_SCREEN, INPUT_PULLUP, LOW);
     btn_motor_up.init(BUTTON_MOTOR_UP, INPUT_PULLUP, LOW);
     btn_motor_down.init(BUTTON_MOTOR_DOWN, INPUT_PULLUP, LOW);
 

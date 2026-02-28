@@ -29,12 +29,14 @@ void ui_init(void)
     lv_disp_t * dispp = lv_display_get_default();
     lv_theme_t * theme = lv_theme_simple_init(dispp);
     lv_disp_set_theme(dispp, theme);
-    ui_Screen_screen_init();
+    ui_ScreenWeather_screen_init();
+    ui_ScreenTable_screen_init();
     ui____initial_actions0 = lv_obj_create(NULL);
-    lv_disp_load_scr(ui_Screen);
+    lv_disp_load_scr(ui_ScreenWeather);
 }
 
 void ui_destroy(void)
 {
-    ui_Screen_screen_destroy();
+    ui_ScreenWeather_screen_destroy();
+    ui_ScreenTable_screen_destroy();
 }

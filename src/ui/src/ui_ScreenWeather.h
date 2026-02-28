@@ -3,17 +3,17 @@
 // LVGL version: 9.3
 // Project name: SquareLine9.3
 
-#ifndef UI_SCREEN_H
-#define UI_SCREEN_H
+#ifndef UI_SCREENWEATHER_H
+#define UI_SCREENWEATHER_H
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-// SCREEN: ui_Screen
-extern void ui_Screen_screen_init(void);
-extern void ui_Screen_screen_destroy(void);
-extern lv_obj_t * ui_Screen;
+// SCREEN: ui_ScreenWeather
+extern void ui_ScreenWeather_screen_init(void);
+extern void ui_ScreenWeather_screen_destroy(void);
+extern lv_obj_t * ui_ScreenWeather;
 extern lv_obj_t * ui_BlockHeader;
 extern lv_obj_t * ui_btn;
 extern lv_obj_t * ui_NameCity;
@@ -23,7 +23,7 @@ extern lv_obj_t * ui_ImageWeather;
 extern lv_obj_t * ui_WeatherTitle;
 extern lv_obj_t * ui_TemperatureTitle;
 // CUSTOM VARIABLES
-extern lv_obj_t * uic_Screen;
+extern lv_obj_t * uic_ScreenWeather;
 extern lv_obj_t * uic_BlockHeader;
 extern lv_obj_t * uic_btn;
 extern lv_obj_t * uic_NameCity;

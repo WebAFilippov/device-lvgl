@@ -3,6 +3,8 @@
 #include <lvgl.h>
 #include "ui/ui.h"
 #include "modules/rtc/rtc.h"
+#include "modules/screen/screen.h"
+#include "modules/motor/motor.h"
 
 static TFT_eSPI tft = TFT_eSPI();
 
@@ -65,6 +67,36 @@ static uint32_t my_tick_get_cb(void)
     return millis();
 }
 
+static void motor_update_cb(lv_timer_t *timer)
+{
+    (void)timer;
+
+    static char status_str[16];
+    static char speed_str[16];
+    static char is_str[16];
+
+    int8_t state = motor_get_state();
+    if (state == 0)
+    {
+        snprintf(status_str, sizeof(status_str), "IDLE");
+    }
+    else if (state == 1)
+    {
+        snprintf(status_str, sizeof(status_str), "FORWARD");
+    }
+    else if (state == -1)
+    {
+        snprintf(status_str, sizeof(status_str), "BACKWARD");
+    }
+    lv_label_set_text(ui_StateValue, status_str);
+
+    snprintf(speed_str, sizeof(speed_str), "%d", motor_get_speed());
+    lv_label_set_text(ui_SpeedValue, speed_str);
+
+    snprintf(is_str, sizeof(is_str), "%u", motor_get_filtered());
+    lv_label_set_text(ui_ISValue, is_str);
+}
+
 void Task_LVGL(void *pvParameters)
 {
     tft.begin();
@@ -96,10 +128,14 @@ void Task_LVGL(void *pvParameters)
     lv_sysmon_show_performance(NULL);
 
     lv_timer_create(clock_timer_cb, 1000, NULL);
+    lv_timer_create(motor_update_cb, 200, NULL);
+
+    Serial0.println("Display initialized");
 
     while (1)
     {
         lv_timer_handler();
+        screen_tick();
 
         vTaskDelay(pdMS_TO_TICKS(1));
     }

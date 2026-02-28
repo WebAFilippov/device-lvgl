@@ -13,8 +13,8 @@ lv_obj_t * uic_TimeTitle;
 lv_obj_t * uic_NameCity;
 lv_obj_t * uic_btn;
 lv_obj_t * uic_BlockHeader;
-lv_obj_t * uic_Screen;
-lv_obj_t * ui_Screen = NULL;
+lv_obj_t * uic_ScreenWeather;
+lv_obj_t * ui_ScreenWeather = NULL;
 lv_obj_t * ui_BlockHeader = NULL;
 lv_obj_t * ui_btn = NULL;
 lv_obj_t * ui_NameCity = NULL;
@@ -27,16 +27,16 @@ lv_obj_t * ui_TemperatureTitle = NULL;
 
 // build funtions
 
-void ui_Screen_screen_init(void)
+void ui_ScreenWeather_screen_init(void)
 {
-    ui_Screen = lv_obj_create(NULL);
-    lv_obj_remove_flag(ui_Screen, LV_OBJ_FLAG_SCROLLABLE);      /// Flags
-    ui_object_set_themeable_style_property(ui_Screen, LV_PART_MAIN | LV_STATE_DEFAULT, LV_STYLE_BG_COLOR,
+    ui_ScreenWeather = lv_obj_create(NULL);
+    lv_obj_remove_flag(ui_ScreenWeather, LV_OBJ_FLAG_SCROLLABLE);      /// Flags
+    ui_object_set_themeable_style_property(ui_ScreenWeather, LV_PART_MAIN | LV_STATE_DEFAULT, LV_STYLE_BG_COLOR,
                                            _ui_theme_color_background);
-    ui_object_set_themeable_style_property(ui_Screen, LV_PART_MAIN | LV_STATE_DEFAULT, LV_STYLE_BG_OPA,
+    ui_object_set_themeable_style_property(ui_ScreenWeather, LV_PART_MAIN | LV_STATE_DEFAULT, LV_STYLE_BG_OPA,
                                            _ui_theme_alpha_background);
 
-    ui_BlockHeader = lv_obj_create(ui_Screen);
+    ui_BlockHeader = lv_obj_create(ui_ScreenWeather);
     lv_obj_remove_style_all(ui_BlockHeader);
     lv_obj_set_height(ui_BlockHeader, 25);
     lv_obj_set_width(ui_BlockHeader, lv_pct(85));
@@ -59,8 +59,10 @@ void ui_Screen_screen_init(void)
     lv_obj_set_style_radius(ui_btn, 3, LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_bg_color(ui_btn, lv_color_hex(0xFFFFFF), LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_bg_opa(ui_btn, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_border_color(ui_btn, lv_color_hex(0x7D7D7D), LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_border_opa(ui_btn, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
+    ui_object_set_themeable_style_property(ui_btn, LV_PART_MAIN | LV_STATE_DEFAULT, LV_STYLE_BORDER_COLOR,
+                                           _ui_theme_color_foreground);
+    ui_object_set_themeable_style_property(ui_btn, LV_PART_MAIN | LV_STATE_DEFAULT, LV_STYLE_BORDER_OPA,
+                                           _ui_theme_alpha_foreground);
     lv_obj_set_style_border_width(ui_btn, 1, LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_pad_left(ui_btn, 5, LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_pad_right(ui_btn, 5, LV_PART_MAIN | LV_STATE_DEFAULT);
@@ -76,7 +78,7 @@ void ui_Screen_screen_init(void)
     lv_obj_set_flex_flow(ui_NameCity, LV_FLEX_FLOW_ROW);
     lv_obj_set_flex_align(ui_NameCity, LV_FLEX_ALIGN_CENTER, LV_FLEX_ALIGN_CENTER, LV_FLEX_ALIGN_CENTER);
     lv_label_set_long_mode(ui_NameCity, LV_LABEL_LONG_MODE_SCROLL_CIRCULAR);
-    lv_label_set_text(ui_NameCity, "Кемерово1 Кемерово2 Кемерово3 Кемерово4");
+    lv_label_set_text(ui_NameCity, "Кемерово");
     ui_object_set_themeable_style_property(ui_NameCity, LV_PART_MAIN | LV_STATE_DEFAULT, LV_STYLE_TEXT_COLOR,
                                            _ui_theme_color_foreground);
     ui_object_set_themeable_style_property(ui_NameCity, LV_PART_MAIN | LV_STATE_DEFAULT, LV_STYLE_TEXT_OPA,
@@ -92,14 +94,14 @@ void ui_Screen_screen_init(void)
     lv_obj_set_x(ui_TimeTitle, -20);
     lv_obj_set_y(ui_TimeTitle, 20);
     lv_obj_set_align(ui_TimeTitle, LV_ALIGN_TOP_RIGHT);
-    lv_label_set_text(ui_TimeTitle, "");
+    lv_label_set_text(ui_TimeTitle, "12:20");
     ui_object_set_themeable_style_property(ui_TimeTitle, LV_PART_MAIN | LV_STATE_DEFAULT, LV_STYLE_TEXT_COLOR,
                                            _ui_theme_color_foreground);
     ui_object_set_themeable_style_property(ui_TimeTitle, LV_PART_MAIN | LV_STATE_DEFAULT, LV_STYLE_TEXT_OPA,
                                            _ui_theme_alpha_foreground);
     lv_obj_set_style_text_font(ui_TimeTitle, &ui_font_Geologica16, LV_PART_MAIN | LV_STATE_DEFAULT);
 
-    ui_BlockWeatherIcon = lv_obj_create(ui_Screen);
+    ui_BlockWeatherIcon = lv_obj_create(ui_ScreenWeather);
     lv_obj_remove_style_all(ui_BlockWeatherIcon);
     lv_obj_set_width(ui_BlockWeatherIcon, 240);
     lv_obj_set_height(ui_BlockWeatherIcon, 150);
@@ -135,9 +137,9 @@ void ui_Screen_screen_init(void)
     ui_object_set_themeable_style_property(ui_WeatherTitle, LV_PART_MAIN | LV_STATE_DEFAULT, LV_STYLE_TEXT_OPA,
                                            _ui_theme_alpha_foreground);
     lv_obj_set_style_text_align(ui_WeatherTitle, LV_TEXT_ALIGN_CENTER, LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_text_font(ui_WeatherTitle, &ui_font_Geologica16, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_text_font(ui_WeatherTitle, &ui_font_Geologica24, LV_PART_MAIN | LV_STATE_DEFAULT);
 
-    ui_TemperatureTitle = lv_label_create(ui_Screen);
+    ui_TemperatureTitle = lv_label_create(ui_ScreenWeather);
     lv_obj_set_width(ui_TemperatureTitle, LV_SIZE_CONTENT);   /// 1
     lv_obj_set_height(ui_TemperatureTitle, LV_SIZE_CONTENT);    /// 1
     lv_obj_set_x(ui_TemperatureTitle, -15);
@@ -148,9 +150,9 @@ void ui_Screen_screen_init(void)
                                            _ui_theme_color_foreground);
     ui_object_set_themeable_style_property(ui_TemperatureTitle, LV_PART_MAIN | LV_STATE_DEFAULT, LV_STYLE_TEXT_OPA,
                                            _ui_theme_alpha_foreground);
-    lv_obj_set_style_text_font(ui_TemperatureTitle, &ui_font_Geologica64, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_text_font(ui_TemperatureTitle, &ui_font_Geologica78, LV_PART_MAIN | LV_STATE_DEFAULT);
 
-    uic_Screen = ui_Screen;
+    uic_ScreenWeather = ui_ScreenWeather;
     uic_BlockHeader = ui_BlockHeader;
     uic_btn = ui_btn;
     uic_NameCity = ui_NameCity;
@@ -162,13 +164,13 @@ void ui_Screen_screen_init(void)
 
 }
 
-void ui_Screen_screen_destroy(void)
+void ui_ScreenWeather_screen_destroy(void)
 {
-    if(ui_Screen) lv_obj_del(ui_Screen);
+    if(ui_ScreenWeather) lv_obj_del(ui_ScreenWeather);
 
     // NULL screen variables
-    uic_Screen = NULL;
-    ui_Screen = NULL;
+    uic_ScreenWeather = NULL;
+    ui_ScreenWeather = NULL;
     uic_BlockHeader = NULL;
     ui_BlockHeader = NULL;
     uic_btn = NULL;

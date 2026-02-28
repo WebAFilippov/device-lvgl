@@ -6,18 +6,12 @@
 #include "ui.h"
 
 
-const ui_theme_variable_t _ui_theme_color_background[3] = {0x000000, 0x000000, 0xCBCBCB};
+const ui_theme_variable_t _ui_theme_color_background[3] = {0x000000, 0x000000, 0xFFFFFF};
 const ui_theme_variable_t _ui_theme_alpha_background[3] = {255, 255, 255};
 
-const ui_theme_variable_t _ui_theme_color_foreground[3] = {0xFFFFFF, 0xFFFFFF, 0x171717};
+const ui_theme_variable_t _ui_theme_color_foreground[3] = {0xFFFFFF, 0xFFFFFF, 0x000000};
 const ui_theme_variable_t _ui_theme_alpha_foreground[3] = {255, 255, 255};
-
-const ui_theme_variable_t _ui_theme_color_gradientTo[3] = {0x000000, 0x575757, 0xEEEEEE};
-const ui_theme_variable_t _ui_theme_alpha_gradientTo[3] = {255, 255, 255};
-
-const ui_theme_variable_t _ui_theme_color_gradientFrom[3] = {0x000000, 0x000000, 0xB2B2B2};
-const ui_theme_variable_t _ui_theme_alpha_gradientFrom[3] = {255, 255, 255};
-uint8_t ui_theme_idx = UI_THEME_LIGHT;
+uint8_t ui_theme_idx = UI_THEME_DARK;
 
 
 void ui_theme_set(uint8_t theme_idx)

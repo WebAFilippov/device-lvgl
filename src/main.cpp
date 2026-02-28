@@ -2,6 +2,7 @@
 #include "modules/button/button.h"
 #include "modules/display/display.h"
 #include "modules/motor/motor.h"
+#include "modules/ntp/ntp.h"
 #include "modules/wifi/wifi.h"
 #include "ui/ui.h"
 #include <lvgl.h>
@@ -16,6 +17,7 @@ void setup()
     motor_init();
     display_init();
     wifi_init();
+    ntp_init();
 
     Serial0.println("Setup done");
 }
@@ -23,4 +25,5 @@ void setup()
 void loop()
 {
     wifi_tick();
+    ntp_tick();
 }

@@ -29,7 +29,8 @@ extern "C" {
 
 ///////////////////// SCREENS ////////////////////
 
-#include "ui_Screen.h"
+#include "ui_ScreenWeather.h"
+#include "ui_ScreenTable.h"
 
 ///////////////////// VARIABLES ////////////////////
 
@@ -45,6 +46,8 @@ LV_IMG_DECLARE(ui_img_0_png);    // assets/0.png
 LV_FONT_DECLARE(ui_font_Geologica14);
 LV_FONT_DECLARE(ui_font_Geologica16);
 LV_FONT_DECLARE(ui_font_Geologica64);
+LV_FONT_DECLARE(ui_font_Geologica78);
+LV_FONT_DECLARE(ui_font_Geologica24);
 
 // UI INIT
 void ui_init(void);

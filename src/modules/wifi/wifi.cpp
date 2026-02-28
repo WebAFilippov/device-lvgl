@@ -10,7 +10,7 @@ static const unsigned long CHECK_INTERVAL_MS = 5000;
 void wifi_init() {
     wm.setDebugOutput(true);
     wm.setConfigPortalTimeout(180);
-    wm.setMinimumSignalQuality(20);
+    wm.setMinimumSignalQuality();
     
     wm.setAPCallback([](WiFiManager *myWM) {
         Serial0.println("WiFi Config Portal started");

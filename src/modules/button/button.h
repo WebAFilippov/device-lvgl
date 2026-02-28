@@ -1,5 +1,4 @@
-#ifndef MODULES_BUTTON_H
-#define MODULES_BUTTON_H
+#pragma once
 
 #include <EncButton.h>
 #include <freertos/FreeRTOS.h>
@@ -12,14 +11,12 @@
 #define EB_FAST_TIME 30   // таймаут быстрого поворота (энкодер)
 #define EB_TOUT_TIME 1000 // таймаут действия (кнопка и энкодер)
 
-#define BUTTON_THEME_PIN 15
+#define BUTTON_CHANGE_SCREEN 15
 #define BUTTON_MOTOR_UP 4
 #define BUTTON_MOTOR_DOWN 5
 
-extern Button btn_theme;
+extern Button btn_change_screen;
 extern Button btn_motor_up;
 extern Button btn_motor_down;
 
 void button_init();
-
-#endif
